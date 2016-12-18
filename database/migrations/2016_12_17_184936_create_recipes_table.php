@@ -15,7 +15,15 @@ class CreateRecipesTable extends Migration
     {
         Schema::create('recipes', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('creator_id')->unsigned();
+            $table->string('name');
+            $table->text('description');
             $table->timestamps();
+
+            $table
+                ->foreign('creator_id')
+                ->references('id')->on('users')
+                ->onDelete('cascade');
         });
     }
 
